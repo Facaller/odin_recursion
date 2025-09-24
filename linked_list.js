@@ -28,7 +28,15 @@ class LinkedList {
     }
 
     prepend (value) {
+        let newNode = new Node(value);
 
+        if (!this.head) {
+            this.head = newNode
+            return;
+        }
+
+        newNode.nextNode = this.head
+        this.head = newNode
     }
 
     size () {
