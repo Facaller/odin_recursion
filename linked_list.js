@@ -14,16 +14,15 @@ class LinkedList {
         let newNode = new Node(value);
 
         if (!this.head) {
-            this.head = newNode
+            this.head = newNode;
             return;
         }
         
         let currentNode = this.head;
         
         while (currentNode.nextNode !== null) {
-            currentNode = currentNode.nextNode
+            currentNode = currentNode.nextNode;
         }
-
         currentNode.nextNode = newNode;
     }
 
@@ -31,12 +30,12 @@ class LinkedList {
         let newNode = new Node(value);
 
         if (!this.head) {
-            this.head = newNode
+            this.head = newNode;
             return;
         }
 
-        newNode.nextNode = this.head
-        this.head = newNode
+        newNode.nextNode = this.head;
+        this.head = newNode;
     }
 
     size () {
@@ -44,7 +43,7 @@ class LinkedList {
         let currentNode = this.head;
 
         while (currentNode !== null) {
-            currentNode = currentNode.nextNode
+            currentNode = currentNode.nextNode;
             nodes++;
         }
         return nodes;
@@ -52,7 +51,6 @@ class LinkedList {
 
     head () {
         if (!this.head) return;
-
         return this.head;
     }
 
@@ -61,12 +59,29 @@ class LinkedList {
         let currentNode = this.head;
         
         while (currentNode.nextNode !== null) {
-            currentNode = currentNode.nextNode
+            currentNode = currentNode.nextNode;
         }
         return currentNode;
     }
 
-    at () {
-        
+    at (index) {
+        if (index < 0 || this.head === null) return;
+
+        let counter = 0;
+        let currentNode = this.head;
+
+        while (counter !== index) {
+            currentNode = currentNode.nextNode;
+            if (currentNode === null) return
+            counter++;
+        }
+        return currentNode;
+    }
+
+    pop () {
+        if (!this.head) return;
+        // if (this.head.nextNode !== null) this.head = null; this is wrong
+
+
     }
 }

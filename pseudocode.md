@@ -1,90 +1,46 @@
-Step-by-step thinking process
-✅ Step 1: Validate the input
+Great question — and you're thinking about this in exactly the right way.
 
-What if the list is empty?
+Here’s the key idea:
 
-What if the index is negative?
+Unlike arrays, linked lists don’t have built-in methods like .slice() or .pop() (the way JavaScript arrays do). You're working with custom node objects, so you have to manage the connections yourself.
 
-What if the index is greater than the size of the list?
+🔧 So, what methods or operations can you use to remove the last node?
 
-You should handle those edge cases somehow. You can return null, undefined, or throw an error — the behavior depends on your design decision, but you should think about them.
+There’s no built-in delete() method on a node — because a node doesn't know about the list it's in. You have to manually unlink the last node by updating the second-to-last node's nextNode to null.
 
-🔁 Step 2: Traverse the list node by node
+✅ What you need to do conceptually:
 
-You can’t jump to index i like in an array.
+If the list is empty → return (you already do this ✅)
 
-You have to start at the head, and walk forward one node at a time.
+If the list has only one node → set this.head = null
 
-For each step, increment a counter.
+Otherwise, traverse to the second-to-last node
 
-When the counter reaches the desired index, you’re at the right node.
+Set secondLastNode.nextNode = null → This is what "removes" the last node from the list
 
-Think of it like counting steps on a path: you walk node by node, counting as you go.
+📌 Key operations (methods or tools) you might use:
+Purpose	What You Use
+Check if list is empty	if (!this.head)
+Check if there's only one node	if (this.head.nextNode === null)
+Traverse the list	while (currentNode.nextNode !== null)
+Unlink a node	currentNode.nextNode = null
+Optional: Keep track of previous node	let prevNode = null;
+❌ What not to look for:
 
-🛑 Step 3: Stop when you hit the index
+❌ currentNode.delete() → not a real method
 
-As soon as the counter matches the index, stop walking.
+❌ .slice() / .pop() → only apply to arrays
 
-Return the current node you’re on.
+❌ delete currentNode → not necessary or helpful here; you just need to sever the link
 
-❌ Step 4: Handle index out of bounds
+✅ TL;DR
 
-If you reach the end of the list (null) before the counter reaches the index, it means the index is too high.
+To “remove” a node from a linked list, you:
 
-In that case, return null or undefined.
+Find the node before the one you want to remove
 
-For example, in a 3-node list, valid indexes are 0, 1, and 2. Asking for at(3) should fail gracefully.
+Set its nextNode to null
 
-🔄 What you’re doing in this method:
+That's it! Once no other node is pointing to that node, it's effectively removed from the list and will be garbage collected in JavaScript.
 
-You’re simulating a manual for-loop with:
-
-A current node (like an iterator)
-
-A counter (tracking how far you've walked)
-
-A stop condition: when the counter matches the desired index
-
-A fail condition: when you run out of nodes before reaching the index
-
-🧪 How you can test your logic
-
-Test it against:
-
-A list with 1 item → try at(0) (valid) and at(1) (invalid)
-
-A list with multiple items → try various indexes
-
-An empty list → any index should fail
-
-Negative indexes → decide if you want to allow or reject them
-
-🧠 Mental image
-
-Imagine this:
-
-You’re on a stepping stone path where each stone has a value written on it. You're told:
-
-"Walk forward index number of steps and tell me what's written on the stone you land on."
-
-You start at the first stone (this.head)
-
-Walk forward one at a time, counting steps
-
-When the count matches index, you stop and return that stone (the node)
-
-If you fall off the path before reaching index → return null or undefined
-
-✅ Summary checklist for at(index):
-
- Start at the head
-
- Initialize a counter
-
- Walk through the list, incrementing the counter
-
- Stop and return the node when the counter equals the target index
-
- If you hit the end of the list before reaching the index → return null
-
- Decide how to handle invalid inputs (negative index, empty list)
+You're on the right track. Want to run your pop() logic by me when you're done with it?
