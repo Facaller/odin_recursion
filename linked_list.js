@@ -80,8 +80,34 @@ class LinkedList {
 
     pop () {
         if (!this.head) return;
-        // if (this.head.nextNode !== null) this.head = null; this is wrong
+        if (this.head.nextNode === null) {
+            this.head = null;
+            return;
+        } 
 
+        let currentNode = this.head;
+        let poppedNode;
+        
+        while (currentNode.nextNode !== null) {
+            if (currentNode.nextNode.nextNode === null) {
+                poppedNode = currentNode.nextNode;
+                currentNode.nextNode = null;
+                return poppedNode;
+            } else {
+                currentNode = currentNode.nextNode;
+            }
+        }
+    }
 
+    contains (value) {
+        if (!this.head) return;
+
+        let currentNode = this.head;
+        
+        while (currentNode.nextNode !== null) {
+            if (currentNode.value === value) return true;
+            currentNode = currentNode.nextNode;
+        }
+        return false;
     }
 }
