@@ -104,10 +104,39 @@ class LinkedList {
 
         let currentNode = this.head;
         
-        while (currentNode.nextNode !== null) {
+        while (currentNode !== null) {
             if (currentNode.value === value) return true;
             currentNode = currentNode.nextNode;
         }
         return false;
+    }
+
+    find (value) {
+        if (!this.head) return;
+
+        let currentNode = this.head;
+        let index = 0
+
+        while (currentNode !== null) {
+            if (currentNode.value === value) return index;
+            currentNode = currentNode.nextNode;
+            index++;
+        }
+        return null;
+    }
+
+    toString () {
+        if (!this.head) return null;
+
+        let currentNode = this.head;
+        let nodeValue;
+        let nodeString = '';
+
+        while (currentNode !== null) {
+            nodeValue = currentNode.value;
+            nodeString = nodeString + `${nodeValue} -> `;
+            currentNode = currentNode.nextNode;
+        }
+        return `${nodeString}null`
     }
 }
