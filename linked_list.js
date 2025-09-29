@@ -139,4 +139,19 @@ class LinkedList {
         }
         return `${nodeString}null`
     }
+
+    insertAt (value, index) {
+        if (index < 0 || this.head === null) return;
+
+        const newNode = new Node(value);
+        let counter = 0;
+        let currentNode = this.head;
+
+        while (counter !== index) {
+            currentNode = currentNode.nextNode;
+            if (currentNode === null) return
+            counter++;
+        }
+        
+    }
 }
