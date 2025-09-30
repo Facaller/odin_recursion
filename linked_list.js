@@ -146,12 +146,26 @@ class LinkedList {
         const newNode = new Node(value);
         let counter = 0;
         let currentNode = this.head;
+        let previousNode;
+
+        if (index === 0) {
+            newNode.nextNode = this.head;
+            this.head = newNode;
+            return;
+        }
 
         while (counter !== index) {
+            previousNode = currentNode;
             currentNode = currentNode.nextNode;
-            if (currentNode === null) return
+            if (currentNode === null) return;
             counter++;
         }
-        
+
+        if (counter === index) {
+            previousNode.nextNode = newNode;
+            newNode.nextNode = null;
+        }
+        previousNode.nextNode = newNode;
+        newNode.nextNode = currentNode;
     }
 }

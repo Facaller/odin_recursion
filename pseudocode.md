@@ -1,47 +1,78 @@
-Your Understanding So Far:
+What You Did Right:
 
-You're right that once your loop finishes (counter === index), you're at the node that currently occupies that index. You want to insert the new node before it, which means:
+Proper handling of index === 0:
 
-You want:
+You now insert at the head and immediately return. Perfect. ✔️
 
-previousNode.nextNode = newNode
+Initialization and traversal logic:
 
-newNode.nextNode = currentNode
+You're correctly using a while loop with a counter.
 
-But since you're using a singly linked list, the nodes only point forward — there’s no .prevNode, so yes:
+You're tracking the previous and current nodes. ✔️
 
-Should I create a variable that keeps track of the previous node?
+❌ Issue: Redundant + Conflicting Assignment at the End
 
-👉 Yes. You absolutely should.
+Look closely at the end of your method:
 
-🔍 What’s Missing in Your Loop?
+if (counter === index) {
+    previousNode.nextNode = newNode;
+    newNode.nextNode = null;
+}
+previousNode.nextNode = newNode;
+newNode.nextNode = currentNode;
 
-Right now, your loop just moves currentNode along. But once you're at the right index, you've lost track of the node before it, which you need in order to reconnect the chain.
 
-💡 Guidance for the Logic:
+There are two sets of assignments to previousNode.nextNode and newNode.nextNode. This leads to a few problems:
 
-Declare a previousNode variable.
+❗️Problem 1: The first block is unnecessary
 
-Inside the loop, before moving currentNode = currentNode.nextNode, assign previousNode = currentNode.
+You've already ensured the loop only exits when counter === index. So there's no need to check it again — that if block will always run.
 
-When the loop finishes:
+Then, right after that, you assign the pointers again, potentially overriding the correct ones.
 
-previousNode.nextNode = newNode
+❗️Problem 2: You're overwriting newNode.nextNode
 
-newNode.nextNode = currentNode
+First you set it to null, then immediately set it to currentNode.
 
-⚠️ Edge Case: Inserting at Index 0
+This is a logic conflict and may cause bugs (especially when inserting in the middle of the list).
 
-In this case, there is no previous node. You'll need to:
+🧠 What You Should Do (in plain logic):
 
-Set newNode.nextNode = this.head
+After your loop exits:
 
-Set this.head = newNode
+You are at the correct position (counter === index).
 
-✅ Final Tips:
+previousNode points to the node before where you want to insert.
 
-Think of a linked list like a chain: to insert a new link, you have to grab the link before the target, cut the chain there, and hook in your new link.
+currentNode is the node currently at index (or null if inserting at the end).
 
-Drawing it out on paper or a whiteboard can help you visualize it more clearly.
+So:
 
-You're doing well. Keep pushing — linked lists are tricky at first, but once you get these insertions down, everything else builds on this foundation.
+Make previousNode.nextNode point to the new node.
+
+Make the new node point to currentNode.
+
+That’s it — two pointer assignments, no conditions, and no duplication.
+
+✅ What to Remove:
+
+The extra if (counter === index) block — it's unnecessary.
+
+The conflicting assignments inside it — especially newNode.nextNode = null.
+
+⚠️ Still Missing: Inserting at the End (Tail)
+
+You haven't tackled the case where index === size of the list. Right now, if currentNode === null (i.e. you're past the last node), your method exits early and does nothing.
+
+You’ll want to allow currentNode to be null, as long as you've reached the correct index.
+
+That means removing the if (currentNode === null) return line inside the loop, or adjusting its logic.
+
+📦 TL;DR Recap
+Area	Status	Action Needed
+Insert at head (index === 0)	✅	Perfect
+Inserting in the middle	⚠️	Remove the extra if (counter === index) block and redundant assignments
+Inserting at end (tail)	❌	Currently not handled; will exit early
+Out-of-bounds handling (index > size)	🚧	Still needs implementation (you know this)
+
+Let me know if you want to write out the logic flow together before you try another version — happy to help you reason it out step-by-step.
