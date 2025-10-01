@@ -141,7 +141,8 @@ class LinkedList {
     }
 
     insertAt (value, index) {
-        if (index < 0 || this.head === null) return;
+        const listSize = this.size();
+        if (index < 0 || this.head === null || index > listSize) return;
 
         const newNode = new Node(value);
         let counter = 0;
@@ -161,10 +162,12 @@ class LinkedList {
             counter++;
         }
 
-        if (counter === index) {
+        if (index === listSize) {
             previousNode.nextNode = newNode;
             newNode.nextNode = null;
+            return;
         }
+        
         previousNode.nextNode = newNode;
         newNode.nextNode = currentNode;
     }
