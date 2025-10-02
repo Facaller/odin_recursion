@@ -50,12 +50,12 @@ class LinkedList {
     }
 
     head () {
-        if (!this.head) return;
+        if (!this.head) return null;
         return this.head;
     }
 
     tail () {
-        if (!this.head) return;
+        if (!this.head) return null;
         let currentNode = this.head;
         
         while (currentNode.nextNode !== null) {
@@ -65,21 +65,21 @@ class LinkedList {
     }
 
     at (index) {
-        if (index < 0 || this.head === null) return;
+        if (index < 0 || this.head === null) return null;
 
         let counter = 0;
         let currentNode = this.head;
 
         while (counter !== index) {
             currentNode = currentNode.nextNode;
-            if (currentNode === null) return
+            if (currentNode === null) return null
             counter++;
         }
         return currentNode;
     }
 
     pop () {
-        if (!this.head) return;
+        if (!this.head) return null;
         if (this.head.nextNode === null) {
             this.head = null;
             return;
@@ -100,7 +100,7 @@ class LinkedList {
     }
 
     contains (value) {
-        if (!this.head) return;
+        if (!this.head) return null;
 
         let currentNode = this.head;
         
@@ -112,7 +112,7 @@ class LinkedList {
     }
 
     find (value) {
-        if (!this.head) return;
+        if (!this.head) return null;
 
         let currentNode = this.head;
         let index = 0
@@ -122,7 +122,7 @@ class LinkedList {
             currentNode = currentNode.nextNode;
             index++;
         }
-        return null;
+        return false;
     }
 
     toString () {
@@ -142,7 +142,7 @@ class LinkedList {
 
     insertAt (value, index) {
         const listSize = this.size();
-        if (index < 0 || this.head === null || index > listSize) return;
+        if (index < 0 || index > listSize) throw new Error;
 
         const newNode = new Node(value);
         let counter = 0;
@@ -158,7 +158,6 @@ class LinkedList {
         while (counter !== index) {
             previousNode = currentNode;
             currentNode = currentNode.nextNode;
-            if (currentNode === null) return;
             counter++;
         }
 
