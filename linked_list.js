@@ -170,4 +170,27 @@ class LinkedList {
         previousNode.nextNode = newNode;
         newNode.nextNode = currentNode;
     }
+
+    removeAt (index) {
+        const listSize = this.size();
+        if (index < 0 || index >= listSize) throw new Error;
+        
+        let i = 0;
+        let targetNode = this.head;
+        let nodeBefore;
+
+        if (index === 0) {
+            this.head = this.head.nextNode;
+            return;
+        }
+
+        while (i !== index) {
+            nodeBefore = targetNode;
+            targetNode = targetNode.nextNode;
+            counter++;
+        }
+
+        nodeBefore.nextNode = targetNode.nextNode;
+    }
 }
+// {1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9}
