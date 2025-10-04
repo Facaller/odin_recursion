@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class LinkedList {
+export class LinkedList {
     constructor () {
         this.head = null;
     }
@@ -193,4 +193,3 @@ class LinkedList {
         nodeBefore.nextNode = targetNode.nextNode;
     }
 }
-// {1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9}
